@@ -6,7 +6,11 @@ const cors = require('cors')
 
 //add controllers here
 const {register, login} = require("./controllers/authController")
-
+const bookingController = require("./controllers/bookingController");
+const centreController = require("./controllers/centreController");
+const cityController = require("./controllers/cityController");
+const sessionController = require("./controllers/sessionController");
+const slotController = require("./controllers/slotController");
 
 app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 app.use(express.json());
@@ -20,6 +24,12 @@ app.use(
 )
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/bookings", bookingController);
+app.use("/centres", centreController);
+app.use("/citys", cityController);
+app.use("/sessions", sessionController);
+app.use("/slots", slotController);
 
 passport.serializeUser(function({user, token}, done) {
     done(null, {user, token});
