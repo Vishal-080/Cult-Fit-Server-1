@@ -9,3 +9,8 @@ let connect = () => {
 
 module.exports = connect;
 
+//`mongodb+srv://pratikjadhav080:cultfitdb@cluster0.ny5n4.mongodb.net/cultfitdatabase?retryWrites=true&w=majority`
+
+// DB_USER=pratikjadhav080
+// DB_PASS=cultfitdb
+// DB_NAME=cultfitdatabase
