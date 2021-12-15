@@ -3,7 +3,6 @@ const app = express();
 const passport = require("./configs/passport")
 const session = require('express-session');
 const cors = require('cors')
-const fbpassport = require("./configs/fbpassport");
 
 //add controllers here
 const {register, login} = require("./controllers/authController")
@@ -31,18 +30,6 @@ passport.deserializeUser(function({user, token}, done) {
 });
 
 
-//---------------fb auth----------//
-
-app.get('/auth/facebook',
-  passport.authenticate('facebook',{ scope : 'email' }));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-   res.redirect('http://localhost:3000/blueaura');
-  });
-
-  
 //---------------google auth----------//
 
 app.get("/auth/google/failure", function(req, res) {
