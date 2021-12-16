@@ -27,7 +27,7 @@ app.use(passport.session());
 
 app.use("/bookings", bookingController);
 app.use("/centres", centreController);
-app.use("/citys", cityController);
+app.use("/cities", cityController);
 app.use("/sessions", sessionController);
 app.use("/slots", slotController);
 
