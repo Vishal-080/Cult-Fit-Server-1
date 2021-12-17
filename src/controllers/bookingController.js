@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/bookingModel");
+const Session = require("../models/sessionModel");
 
 router.post("/", async (req, res) => {
 
     let booking = await Booking.create(req.body);
-    res.status(201).send({ Booking });
+    res.status(201).send({ booking });
 });
 
 router.get("/", async (req, res) => {
@@ -18,6 +19,23 @@ router.get("/:id", async (req, res) => {
 
     let booking = await Booking.findById(req.params.id).lean();
     res.status(201).send({ booking });
+});
+
+
+router.get("/availableslots/:date/:sessionname/:centreid", async (req, res) => {
+
+    let session = await Session.find({sessionname:req.params.sessionname}).populate(['slotsid']).lean();
+
+    let allslots = session[0].slotsid.map((e)=>e.slotTime)
+
+    let booking = await Booking.find({ $and: [ { date: req.params.date }, { sessionid: session[0]._id }, { centreid: req.params.centreid }] }).populate(['userid', 'centreid','sessionid','slotsid']).lean();
+    
+    let bookedslots = booking.map((e)=>e.slotsid.slotTime)
+
+    let filteredslots = allslots.filter((e) => !bookedslots.includes(e));
+
+    res.status(201).send({ bookedslots,allslots,filteredslots });
+
 });
 
 router.patch("/:id", async (req, res) => {
