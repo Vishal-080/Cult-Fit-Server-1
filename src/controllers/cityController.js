@@ -20,6 +20,13 @@ router.get("/:id", async (req, res) => {
     res.status(201).send({ city });
 });
 
+router.get("/centres/:city", async (req, res) => {
+
+    let city = await City.find({ cityname: req.params.city }).populate("centreid").lean();
+    res.status(201).send(city[0].centreid);
+});
+
+
 router.patch("/:id", async (req, res) => {
 
     let city = await City.findByIdAndUpdate(req.params.id, req.body, { new: true });
