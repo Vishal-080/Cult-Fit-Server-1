@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
     res.status(201).send({ centre });
 });
 
+
 router.get("/:id", async (req, res) => {
 
     let centre = await Centre.findById(req.params.id).lean();
