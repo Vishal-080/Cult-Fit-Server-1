@@ -16,16 +16,18 @@ passport.use(new GoogleStrategy({
     const email = profile?._json?.email
     const name = profile?._json?.name
 
-    console.log(email)
+    console.log(profile)
     let user;
     try {
       user = await User.findOne({ email }).lean().exec();
 
       if (!user) {
         user = await User.create({
-          name: name,
+          firstname:name,
+          lastname: name,
           email: email,
-          password: uuidV4()
+          password: uuidV4(),
+          trials:1
         })
       }
 

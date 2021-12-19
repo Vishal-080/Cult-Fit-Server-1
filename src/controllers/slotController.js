@@ -14,6 +14,12 @@ router.get("/", async (req, res) => {
     res.status(201).send({ slot });
 });
 
+router.get("/slotid/:slottime", async (req, res) => {
+    console.log(req.params.slottime)
+    let slot = await Slot.find({slotTime:req.params.slottime}).lean();
+    res.status(201).send({ slot });
+});
+
 router.get("/:id", async (req, res) => {
 
     let slot = await Slot.findById(req.params.id).lean();

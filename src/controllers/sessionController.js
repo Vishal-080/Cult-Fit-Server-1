@@ -14,6 +14,13 @@ router.get("/", async (req, res) => {
     res.status(201).send({ session });
 });
 
+router.get("/sessionid/:sessionname", async (req, res) => {
+
+    let session = await Session.find({sessionname:req.params.sessionname}).lean();
+    res.status(201).send({ session });
+});
+
+
 router.get("/:id", async (req, res) => {
 
     let session = await Session.findById(req.params.id).lean();
