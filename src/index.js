@@ -13,7 +13,7 @@ const sessionController = require("./controllers/sessionController");
 const slotController = require("./controllers/slotController");
 const userController = require("./controllers/userController");
 
-app.use(cors({origin: `${process.env.FRONTEND_URL}`, credentials: true}));
+app.use(cors({origin: process.env.FRONTEND_URL, credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
