@@ -13,7 +13,7 @@ const sessionController = require("./controllers/sessionController");
 const slotController = require("./controllers/slotController");
 const userController = require("./controllers/userController");
 
-app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+app.use(cors({origin: `${process.env.FRONTEND_URL}`, credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -57,7 +57,7 @@ app.get( '/auth/google/callback',
     passport.authenticate( 'google', {
         failureRedirect: '/auth/google/failure'
 }), function(req, res) {
-    res.redirect('http://localhost:3000')
+    res.redirect(`${process.env.FRONTEND_URL}`)
 });
 
 
@@ -74,7 +74,7 @@ app.get('/profile',isLoggedIn,(req, res) => {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
-    res.redirect('http://localhost:3000');
+    res.redirect(`${process.env.FRONTEND_URL}`);
 }
 
 

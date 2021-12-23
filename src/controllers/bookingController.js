@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     let booking = await Booking.create(req.body);
 
     axios
-    .patch(`http://localhost:7765/users/trialikes/${req.body.userid}`, { trials:1 })
+    .patch(`${process.env.BACKEND_URL}/users/trialikes/${req.body.userid}`, { trials:1 })
     .then(res => {
         console.log("data", res.data)
     })
